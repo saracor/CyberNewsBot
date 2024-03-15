@@ -10,4 +10,5 @@ Run the following commands to install dependencies:
 pip install discord
 pip install boto3
 pip install requests
+pip install rss-parser
 ```
