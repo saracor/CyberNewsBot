@@ -27,9 +27,17 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 
 #Main loop to fetch the news & post it to a channel if new
-@tasks.loop(seconds=3600)
+@tasks.loop(seconds=5400)
 async def refresh_news():
     global rss_articles
+    
+    #Check to see if there are over 100 articles in our rss_articles list and clean it up a bit if true
+    if len(rss_articles) > 100:
+         del rss_articles[:30]
+         print(f"[*] Deleting some old entries from the RSS topic list")
+    else:
+         pass
+    
     print(f"[*] Refreshing the RSS feed at {datetime.now()}")
     response = get(rss_url)
     rss = RSSParser.parse(response.text)
